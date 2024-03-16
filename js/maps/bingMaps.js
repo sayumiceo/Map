@@ -1,3 +1,13 @@
+// bingMaps.js
+import { BING_MAPS_KEY } from '../key.js'; 
+
+// Bing Mapsスクリプトのロード
+const script = document.createElement('script');
+script.src = `https://www.bing.com/api/maps/mapcontrol?callback=GetMap&key=${BING_MAPS_KEY}`;
+script.async = true;
+script.defer = true;
+document.body.appendChild(script);
+
 let map;
 let pinIndex = 1;
 
@@ -17,7 +27,7 @@ function GetMap() {
         const manager = new Microsoft.Maps.AutosuggestManager(options);
         manager.attachAutosuggest('#job-location', '#suggestion-container', selectedSuggestion);
 
-        
+            
     });
 }
 
@@ -36,9 +46,9 @@ document.addEventListener('NewJobAdded', function(e) {
 
 
 function geocodeAddressManually(jobData) {
-    const bingMapsKey = 'An6NI3K8J-MjGJjkxr3RU2X1KdZoqWIK4pRG2q77r1lZm4XZqy9waFKHpR3bcsKh';
+    const bingMapsKey = BING_MAPS_KEY;
     const encodedAddress = encodeURIComponent(jobData.location);
-    const geocodeRequestUrl = `http://dev.virtualearth.net/REST/v1/Locations?q=${encodedAddress}&key=${bingMapsKey}`;
+    const geocodeRequestUrl = `http://dev.virtualearth.net/REST/v1/Locations?q=${encodedAddress}&key=${BING_MAPS_KEY}`;
 
     fetch(geocodeRequestUrl)
         .then(response => response.json())
@@ -80,3 +90,5 @@ function createInfobox(location, title, description) {
     // Set the map view to the bounding rectangle
     map.setView({ bounds: bounds });
 }
+
+window.GetMap = GetMap;
