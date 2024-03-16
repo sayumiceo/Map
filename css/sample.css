@@ -1,0 +1,187 @@
+* {
+    box-sizing: border-box;
+  }
+  
+  body, html {
+    height: 100%;
+    margin: 0;
+  }
+  
+  .container {
+    display: flex;
+    flex-wrap: wrap;
+  }
+  
+  header {
+    flex: 1 100%;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 20px;
+    background-color: #fff;
+  }
+  
+  
+  .search-container {
+    display: flex;
+    align-items: center;
+    justify-content: center; /* 水平方向に中央揃え */ 
+    margin: 20px;
+    padding: 5px 10px;
+    background-color: #fff;
+    border: 1px solid #ddd; /* Adjust color to match your design */
+    border-radius: 30px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    width: 40%; /* 横幅を80%に設定 */
+    max-width: 800px; /* 最大横幅を制限する */
+    margin: auto; /* 上下のマージンを自動、左右は自動で中央揃え */
+  }
+  
+  #search-box {
+    border: none;
+    outline: none;
+    margin-right: 10px;
+    font-size: 14px; /* テキストのサイズを設定 */
+    flex-grow: 1;
+    padding: 10px; /* 入力エリアの内側の余白を追加 */
+
+  }
+  
+  #search-button {
+    background-color: transparent;
+    border: none;
+    outline: none;
+    cursor: pointer;
+    padding: 10px 16px; /* ボタンの内側の余白を設定 */
+    margin-left: auto; /* ボタンを右に寄せる */
+
+  }
+  
+  /* さらにスマートフォンなど小さい画面で見たときに適切に表示されるようにする */
+  @media (max-width: 768px) {
+    .search-container {
+      width: 95%; /* スマートフォンでは横幅を少し広げる */
+    }
+  }
+  
+
+  
+  .profile {
+    width: 40px;
+    height: 40px;
+    background-color: #ddd;
+    border-radius: 50%;
+  }
+  
+  .listing {
+    flex: 1;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-around;
+    padding: 10px;
+    background: #ffffff;
+  }
+  
+  .card {
+    width: calc(33.333% - 20px);
+    margin: 10px;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+  }
+  
+  .card img {
+    width: 100%;
+    height: auto;
+  }
+  
+  .rating, .description {
+    padding: 5px 10px;
+  }
+  
+  #map {
+    flex: 2;
+    height: calc(100vh - 50px); /* Adjust height as per header */
+    background-color: #e0e0e0;
+  }
+  
+/* フォーム全体のスタイル */
+#job-form {
+    display: flex;
+    flex-direction: column;
+    gap: 10px; /* 各フォームグループの間隔 */
+  }
+  
+  /* 個々のフォーム項目のグループスタイル */
+  .form-group {
+    display: flex;
+    flex-direction: column;
+    margin-bottom: 10px;
+  }
+  
+  /* 入力フィールドのスタイル */
+  #job-form input[type="text"],
+  #job-form textarea,
+  #job-form input[type="file"] {
+    width: 100%; /* 入力フィールドを幅いっぱいに伸ばす */
+    padding: 5px;
+    margin-top: 5px; /* ラベルと入力フィールドの間隔 */
+  }
+  
+  /* サブミットボタンのスタイル */
+  #job-form input[type="submit"] {
+    width: auto; /* ボタンの幅は自動で調整 */
+    padding: 10px 20px;
+    margin-top: 5px; /* フォームグループとボタンの間隔 */
+  }
+
+
+  #post-job-button {
+    background-color: #47ba80; /* ボタンの背景色 */
+    color: white; /* テキストの色 */
+    padding: 15px 32px; /* 上下左右のパディング */
+    text-align: center; /* テキストを中央寄せに */
+    display: inline-block; /* インラインブロック要素として表示 */
+    font-size: 16px; /* フォントサイズ */
+    cursor: pointer; /* ホバー時のカーソルをポインタに */
+    border: none; /* 枠線なし */
+    border-radius: 30px; /* 角の丸み */
+    transition: transform 0.3s; /* トランジション効果を追加 */
+  }
+  
+  #post-job-button:hover {
+    background-color: #57ad82; /* ホバー時の背景色 */
+    transform: translateY(-2px); /* 上に少し移動するアニメーション */
+  }
+  
+
+  /* ポップアップのスタイル */
+  .popup {
+    display: none;
+    position: fixed;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%, -50%);
+    background-color: #ffffffdb;
+    border-radius: 20px;
+    padding: 20px;
+    z-index: 1000;
+    width: 50%; /* ポップアップの幅を調整 */
+  }
+  
+  .popup-active {
+    display: block;
+  }
+  
+  .customInfobox {
+    background-color: rgba(0,0,0,0.5);
+    color: white;
+    max-width: 200px;
+    border-radius: 10px;
+    padding: 10px;
+    font-size:12px;
+    pointer-events:auto !important;
+}
+.customInfobox .title {
+    font-size: 14px;
+    font-weight: bold;
+    margin-bottom: 5px;
+}

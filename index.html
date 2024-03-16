@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="utf-8">
+<title>Mapアプリ</title>
+<link rel="stylesheet" href="css/sample.css">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<link href="https://fonts.googleapis.com/css2?family=Gamja+Flower&family=Overlock:wght@900&family=Roboto:wght@500&family=Zen+Kaku+Gothic+New&family=Zen+Maru+Gothic:wght@300;400;500;700;900&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.2.0/css/font-awesome.min.css">
+
+</head>
+<body>
+
+    <div class="container">
+        <header>
+            <button id="post-job-button">投稿</button>
+
+            <div class="search-container">
+                <input type="text" id="search-box" placeholder="検索...">
+                <button id="search-button">🔍</button>
+              </div>
+
+              <div class="profile"></div>
+        </header>
+
+
+<!-- ポップアップフォーム -->
+<div id="job-form-popup" class="popup">
+    <form id="job-form">
+
+    <!-- <div class="form-group">
+        <label for="job-thumbnail">サムネイル画像:</label>
+        <input type="file" id="job-thumbnail" name="job-thumbnail">
+    </div> -->
+
+      <div class="form-group">
+        <label for="job-title">職種:</label>
+        <input type="text" id="job-title" name="job-title">
+      </div>
+  
+      <div class="form-group">
+        <label for="job-description">職務内容:</label>
+        <textarea id="job-description" name="job-description"></textarea>
+      </div>
+  
+
+      <div class="form-group">
+        <label for="job-location">勤務地:</label>
+        <input type="text" id="job-location" name="job-location">
+        <div id="suggestion-container"></div>
+      </div>
+  
+      <div class="form-group">
+        <input type="submit" value="登録">
+      </div>
+    </form>
+  </div>
+  
+        <section class="listing" id="job-listing">
+        </section>
+    
+        <aside id="map">
+          <!-- Bingマップが表示される -->
+        </aside>
+      </div>
+
+<!-- JQuery -->
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+<!-- JQuery -->
+
+
+<script src='https://www.bing.com/api/maps/mapcontrol?callback=GetMap&key=An6NI3K8J-MjGJjkxr3RU2X1KdZoqWIK4pRG2q77r1lZm4XZqy9waFKHpR3bcsKh' async defer></script>
+<script src="/js/maps/bingMaps.js"></script>
+<script type="module" src="/js/firebase/firebaseConfig.js"></script>
+<script type="module" src="/js/firebase/firebaseApp.js"></script>
+
+
+
+
+
+</body>
+</html>
