@@ -1,17 +1,10 @@
   // Import the functions you need from the SDKs you need
+  import { firebaseConfig } from '../key.js'; 
+
   import { initializeApp } from "https://www.gstatic.com/firebasejs/10.9.0/firebase-app.js";
   import { getDatabase, ref, push, set, onValue }  
   from "https://www.gstatic.com/firebasejs/10.9.0/firebase-database.js";
 
-  const firebaseConfig = {
-    apiKey: "AIzaSyA6ZynASjQfXACz19CiWqWhCWkGOiDN16g",
-    authDomain: "map-app-sample-52661.firebaseapp.com",
-    projectId: "map-app-sample-52661",
-    storageBucket: "map-app-sample-52661.appspot.com",
-    messagingSenderId: "620196912469",
-    appId: "1:620196912469:web:777684cd63ac1149b823dc"
-  };
-  
 // Initialize Firebase
 const app = initializeApp(firebaseConfig);
 const db = getDatabase(app);
