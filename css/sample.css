@@ -9,16 +9,23 @@
   
   .container {
     display: flex;
-    flex-wrap: wrap;
+    flex-direction: column; /* This stacks children vertically */
+    margin-top: 94px; /* Set this to the height of your header */
   }
   
   header {
-    flex: 1 100%;
+    width: 100%; /* This ensures the header takes the full width */
+    position: fixed; /* This will take the header out of the flow and fix it at the top */
+    top: 0; /* Align the header at the top */
+    left: 0; /* Align the header to the left */
+    z-index: 1000; /* Ensures the header stays above other content */
+    height: 94px; /* Example fixed height */
     display: flex;
     justify-content: space-between;
     align-items: center;
     padding: 20px;
     background-color: #fff;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.1); 
   }
   
   
@@ -65,27 +72,55 @@
   }
   
 
-  
   .profile {
     width: 40px;
     height: 40px;
     background-color: #ddd;
     border-radius: 50%;
   }
+
+  #map {
+    position: fixed !important; /* Fixes the map */
+    top: 94px; /* Same as header height */
+    right: 0;
+    width: 50%; /* Or whatever width you prefer for the map */
+    height: calc(100vh - 94px); /* Full height minus the header */
+  }
   
+  .main-content {
+    display: flex; /* This will create a flex container for main content */
+    flex-grow: 1; /* Allows the container to fill the height */
+    width: 100%; /* Ensures the main content uses the full width */
+  }
+
+  .listing-container {
+    margin-top: 10px; /* This should match the height of the header */
+    width: 50%; /* Listing takes up half the width */
+    height: calc(100vh - 94px); /* Full height minus the header */
+    flex-direction: column;
+    overflow-y: auto; 
+  }
+
   .listing {
-    flex: 1;
-    display: flex;
-    flex-wrap: wrap;
-    justify-content: space-around;
+    display: grid;
+    grid-template-columns: repeat(3, 1fr); /* Three columns */
+    gap: 10px; /* Space between cards */
     padding: 10px;
     background: #ffffff;
   }
   
   .card {
-    width: calc(33.333% - 20px);
+    height: 300px; /* Fixed height for all cards */
     margin: 10px;
+    padding: 10px;
     box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+    border-radius: 10px;
+    font-size: 12px; 
+  }
+
+  .job-title {
+
+    font-size: 16px; 
   }
   
   .card img {
@@ -97,12 +132,19 @@
     padding: 5px 10px;
   }
   
-  #map {
-    flex: 2;
-    height: calc(100vh - 50px); /* Adjust height as per header */
-    background-color: #e0e0e0;
-  }
-  
+
+  .close-popup-button {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    padding: 5px 10px;
+    background: #bebebe7d;
+    border-radius: 20px;
+    color: #8e8d8d;
+    border: none;
+    cursor: pointer;
+}
+
 /* フォーム全体のスタイル */
 #job-form {
     display: flex;
@@ -185,3 +227,45 @@
     font-weight: bold;
     margin-bottom: 5px;
 }
+
+#pagination-controls {
+  text-align: center;
+  align-self: center;
+  margin-top: 20px; /* Adjust as needed for spacing */
+}
+
+#pagination-controls button {
+  background-color: transparent;
+  border: none;
+  border-radius: 30px;
+  font-size: 16px; /* Adjust as needed */
+  padding: 10px;
+  margin: 10px;
+  cursor: pointer;
+}
+
+#pagination-controls button:hover {
+  background-color: #f0f0f0; /* Light grey background on hover */
+}
+
+#pagination-controls .active-page {
+  background-color: #000;
+  color: #fff;
+  border-radius: 50%; /* Makes the button round */
+  width: 30px; /* Fixed width */
+  height: 30px; /* Fixed height */
+  line-height: 30px; /* Centers the text vertically */
+  display: inline-block;
+  text-align: center;
+}
+
+#pagination-controls .page-number {
+  background-color: #fff;
+  color: #000;
+  text-decoration: none; /* Removes underline from numbers if using <a> tags */
+}
+
+#pagination-controls .page-number:hover {
+  text-decoration: underline; /* Underline on hover */
+}
+

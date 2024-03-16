@@ -9,6 +9,12 @@
 const app = initializeApp(firebaseConfig);
 const db = getDatabase(app);
 
+
+let currentPage = 1;
+const jobsPerPage = 9; // Adjust the number of jobs per page as needed
+let totalJobs = [];
+
+
 // Function to display job information in the list
 function addJobToList(jobData, jobListing) {
     // Create the card element
@@ -41,23 +47,81 @@ function addJobToList(jobData, jobListing) {
 }
 
 // Function to fetch jobs from Firebase and update the UI
+// function fetchJobsAndUpdateList(jobListing) {
+//     const jobsRef = ref(db, 'jobs');
+//     onValue(jobsRef, (snapshot) => {
+//         // Clear the current list
+//         jobListing.innerHTML = '';
+
+//         // Get the data from Firebase
+//         const jobs = snapshot.val();
+
+//         // Loop through the jobs and add them to the list
+//         for (const jobId in jobs) {
+//             addJobToList(jobs[jobId], jobListing);
+//         }
+//     }, {
+//         onlyOnce: false 
+//         // This ensures the listener stays active
+//     });
+// }
+
+
 function fetchJobsAndUpdateList(jobListing) {
     const jobsRef = ref(db, 'jobs');
     onValue(jobsRef, (snapshot) => {
-        // Clear the current list
-        jobListing.innerHTML = '';
-
+        totalJobs = []; // Reset the total jobs array
+        
         // Get the data from Firebase
         const jobs = snapshot.val();
 
-        // Loop through the jobs and add them to the list
+        // Convert the jobs object to an array and store in totalJobs
         for (const jobId in jobs) {
-            addJobToList(jobs[jobId], jobListing);
+            totalJobs.push(jobs[jobId]);
         }
+        
+        // Render the first page of jobs
+        renderPage(currentPage, jobListing);
     }, {
         onlyOnce: false // This ensures the listener stays active
     });
 }
+
+function renderPage(pageNumber, jobListing) {
+    // Calculate the index range of jobs for the current page
+    const startIndex = (pageNumber - 1) * jobsPerPage;
+    const endIndex = startIndex + jobsPerPage;
+    
+    // Clear the current job listing
+    jobListing.innerHTML = '';
+    
+    // Slice the totalJobs array to get the jobs for the current page and render them
+    totalJobs.slice(startIndex, endIndex).forEach(jobData => {
+        addJobToList(jobData, jobListing);
+    });
+
+    // Update pagination controls here if needed
+    updatePaginationControls();
+}
+
+function updatePaginationControls() {
+    const paginationContainer = document.getElementById('pagination-controls');
+    paginationContainer.innerHTML = ''; // Clear existing controls
+    
+    const totalPages = Math.ceil(totalJobs.length / jobsPerPage);
+
+    for (let i = 1; i <= totalPages; i++) {
+        const pageButton = document.createElement('button');
+        pageButton.textContent = i;
+        pageButton.addEventListener('click', () => {
+            currentPage = i;
+            renderPage(i, document.getElementById('job-listing'));
+        });
+        
+        paginationContainer.appendChild(pageButton);
+    }
+}   
+
 
 document.addEventListener('DOMContentLoaded', function() {
     const jobListing = document.getElementById('job-listing'); // The ID of the listing section
@@ -66,6 +130,15 @@ document.addEventListener('DOMContentLoaded', function() {
     const postJobButton = document.getElementById('post-job-button');
     const jobFormPopup = document.getElementById('job-form-popup');
     const jobForm = document.getElementById('job-form');
+
+ 
+    const closeButton = document.getElementById('close-popup');
+    const popup = document.getElementById('job-form-popup');
+
+    closeButton.addEventListener('click', function() {
+        jobFormPopup.classList.toggle('popup-active');
+    });
+
 
     // Ensure the elements exist before adding event listeners
     if (postJobButton && jobFormPopup) {
@@ -99,6 +172,7 @@ document.addEventListener('DOMContentLoaded', function() {
             jobFormPopup.classList.remove('popup-active');
         });
     }
+
 });
 
 

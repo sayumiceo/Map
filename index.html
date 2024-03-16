@@ -11,58 +11,69 @@
 </head>
 <body>
 
-    <div class="container">
-        <header>
-            <button id="post-job-button">投稿</button>
+  <div class="container">
+    <header>
+        <button id="post-job-button">投稿</button>
 
-            <div class="search-container">
-                <input type="text" id="search-box" placeholder="検索...">
-                <button id="search-button">🔍</button>
-              </div>
+        <div class="search-container">
+            <input type="text" id="search-box" placeholder="検索...">
+            <button id="search-button">🔍</button>
+          </div>
 
-              <div class="profile"></div>
-        </header>
+          <div class="profile"></div>
+    </header>
 
 
-<!-- ポップアップフォーム -->
-<div id="job-form-popup" class="popup">
-    <form id="job-form">
+    <!-- ポップアップフォーム -->
+    <div id="job-form-popup" class="popup">
+      <form id="job-form">
 
-    <!-- <div class="form-group">
-        <label for="job-thumbnail">サムネイル画像:</label>
-        <input type="file" id="job-thumbnail" name="job-thumbnail">
-    </div> -->
+        <button type="button" id="close-popup" class="close-popup-button">x</button>
 
-      <div class="form-group">
-        <label for="job-title">職種:</label>
-        <input type="text" id="job-title" name="job-title">
-      </div>
-  
-      <div class="form-group">
-        <label for="job-description">職務内容:</label>
-        <textarea id="job-description" name="job-description"></textarea>
-      </div>
-  
+        <!-- <div class="form-group">
+            <label for="job-thumbnail">サムネイル画像:</label>
+            <input type="file" id="job-thumbnail" name="job-thumbnail">
+        </div> -->
 
-      <div class="form-group">
-        <label for="job-location">勤務地:</label>
-        <input type="text" id="job-location" name="job-location">
-        <div id="suggestion-container"></div>
-      </div>
-  
-      <div class="form-group">
-        <input type="submit" value="登録">
-      </div>
-    </form>
-  </div>
-  
-        <section class="listing" id="job-listing">
-        </section>
+        <div class="form-group">
+          <label for="job-title">職種</label>
+          <input type="text" id="job-title" name="job-title">
+        </div>
     
-        <aside id="map">
+        <div class="form-group">
+          <label for="job-description">職務内容</label>
+          <textarea id="job-description" name="job-description"></textarea>
+        </div>
+    
+
+        <div class="form-group">
+          <label for="job-location">勤務地</label>
+          <input type="text" id="job-location" name="job-location">
+          <div id="suggestion-container"></div>
+        </div>
+    
+        <div class="form-group">
+          <input type="submit" value="登録">
+        </div>
+      </form>
+    </div>
+
+    <div class="main-content">
+        <div class="listing-container">
+              <section class="listing" id="job-listing">
+              </section>
+              
+              <div id="pagination-controls"></div>
+          
+        </div>
+
+        <div id="map">
           <!-- Bingマップが表示される -->
-        </aside>
-      </div>
+        </div>
+    </div>
+</div>
+
+      
 
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
 

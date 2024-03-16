@@ -75,7 +75,7 @@ function geocodeAddressManually(jobData) {
 }
 
 function createInfobox(location, title, description) {
-    let descriptionWithPin = '<img src="https://www.bingmapsportal.com/Content/images/poi_custom.png" align="left" style="margin-right:5px;"/>' + description;
+    let descriptionWithPin = '<img src="/img/placeholder.png" align="left" style="margin-right:5px;"/>' + description;
 
     //Infobox:html
     let infoboxTemplate = '<div class="customInfobox"><div class="title">{title}</div>{description}</div>';
