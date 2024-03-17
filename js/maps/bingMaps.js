@@ -45,6 +45,7 @@ document.addEventListener('NewJobAdded', function(e) {
 });
 
 
+//仕事のデータ (jobData) を受け取り。住所を地理的座標（緯度と経度）に変換（ジオコーディング）
 function geocodeAddressManually(jobData) {
     const bingMapsKey = BING_MAPS_KEY;
     const encodedAddress = encodeURIComponent(jobData.location);
@@ -74,7 +75,7 @@ function geocodeAddressManually(jobData) {
         });
 }
 
-
+//現在表示されているページに関連する仕事のリストを受け取り。地図上のピンを更新
 function updateMapForVisibleJobs(visibleJobs) {
     clearMapPins(); // First, clear the map of any existing pins
     
@@ -87,6 +88,7 @@ function updateMapForVisibleJobs(visibleJobs) {
 
 var infoboxes = [];
 
+//情報ボックス作成
 function createInfobox(location, title, description) {
     let descriptionWithPin = '<img src="/img/placeholder.png" align="left" style="margin-right:5px;"/>' + description;
 
@@ -100,6 +102,7 @@ function createInfobox(location, title, description) {
     infoboxes.push(infobox);
 }
 
+//地図上の全てのピンをクリア
 function clearMapPins() {
     for (var i in infoboxes) {
         infoboxes[i].setMap(null);

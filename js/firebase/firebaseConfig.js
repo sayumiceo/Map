@@ -11,11 +11,11 @@ const db = getDatabase(app);
 
 
 let currentPage = 1;
-const jobsPerPage = 9; // Adjust the number of jobs per page as needed
+const jobsPerPage = 9; 
 let totalJobs = [];
 
 
-// Function to display job information in the list
+// 保存
 function addJobToList(jobData, jobListing) {
     // Create the card element
     const card = document.createElement('div');
@@ -25,7 +25,7 @@ function addJobToList(jobData, jobListing) {
     const jobTitleElement = document.createElement('div');
     jobTitleElement.className = 'job-title';
     jobTitleElement.textContent = jobData.title;
-    card.appendChild(jobTitleElement);
+    card.appendChild(jobTitleElement); //要素をカードに追加
 
     // Create and append the job description element
     const jobDescriptionElement = document.createElement('div');
@@ -46,7 +46,7 @@ function addJobToList(jobData, jobListing) {
     document.dispatchEvent(event);
 }
 
-
+// Firebaseから仕事情報を取得してリストに表示
 function fetchJobsAndUpdateList(jobListing) {
     const jobsRef = ref(db, 'jobs');
     onValue(jobsRef, (snapshot) => {
@@ -57,16 +57,17 @@ function fetchJobsAndUpdateList(jobListing) {
 
         // Convert the jobs object to an array and store in totalJobs
         for (const jobId in jobs) {
-            totalJobs.push(jobs[jobId]);
+            totalJobs.push(jobs[jobId]); //データの処理と配列への格納
         }
         
-        renderPage(currentPage, jobListing); // Render the first page of jobs
+        renderPage(currentPage, jobListing); // ページ上のリストの更新
         updatePaginationControls(); // Update the pagination controls
     }, {
         onlyOnce: false // This ensures the listener stays active
     });
 }
 
+//指定されたページ番号に基づいて仕事のリストを表示
 function renderPage(pageNumber, jobListing) {
     // Calculate the index range of jobs for the current page
     const startIndex = (pageNumber - 1) * jobsPerPage;
@@ -91,6 +92,7 @@ function renderPage(pageNumber, jobListing) {
 
 }
 
+//ページネーションコントロール
 function updatePaginationControls() {
     const paginationContainer = document.getElementById('pagination-controls');
     paginationContainer.innerHTML = ''; // Clear existing controls
@@ -108,7 +110,7 @@ function updatePaginationControls() {
     }
 }   
 
-
+//ページが読み込まれた後に初期化
 document.addEventListener('DOMContentLoaded', function() {
     const jobListing = document.getElementById('job-listing'); // The ID of the listing section
     fetchJobsAndUpdateList(jobListing);
@@ -166,7 +168,7 @@ document.addEventListener('DOMContentLoaded', function() {
 });
 
 
-// Function to save data to Firebase
+// 新しい仕事のデータをFirebaseに保存
 function saveJobToFirebase(jobData) {
     const jobsRef = ref(db, 'jobs');
     const newJobRef = push(jobsRef);
