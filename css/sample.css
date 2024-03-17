@@ -5,6 +5,7 @@
   body, html {
     height: 100%;
     margin: 0;
+    overflow-y: hidden;
   }
   
   .container {
@@ -119,7 +120,6 @@
   }
 
   .job-title {
-
     font-size: 16px; 
   }
   
@@ -128,7 +128,7 @@
     height: auto;
   }
   
-  .rating, .description {
+  .description {
     padding: 5px 10px;
   }
   
@@ -173,11 +173,18 @@
     width: auto; /* ボタンの幅は自動で調整 */
     padding: 10px 20px;
     margin-top: 5px; /* フォームグループとボタンの間隔 */
+    color: white;
+    border: none;
+    border-radius: 20px;
+    background-color: #8d6ee9;
   }
 
+  #job-form input[type="submit"] :hover {
+    background-color: #8161e3; /* ホバー時の背景色 */
+  }
 
   #post-job-button {
-    background-color: #47ba80; /* ボタンの背景色 */
+    background-color: #8d6ee9; /* ボタンの背景色 */
     color: white; /* テキストの色 */
     padding: 15px 32px; /* 上下左右のパディング */
     text-align: center; /* テキストを中央寄せに */
@@ -190,7 +197,7 @@
   }
   
   #post-job-button:hover {
-    background-color: #57ad82; /* ホバー時の背景色 */
+    background-color: #8161e3; /* ホバー時の背景色 */
     transform: translateY(-2px); /* 上に少し移動するアニメーション */
   }
   
@@ -231,41 +238,37 @@
 #pagination-controls {
   text-align: center;
   align-self: center;
-  margin-top: 20px; /* Adjust as needed for spacing */
+  margin-top: 10px; /* Adjust as needed for spacing */
+  margin-bottom: 20px; /* Adjust as needed for spacing */
+
 }
 
 #pagination-controls button {
   background-color: transparent;
   border: none;
-  border-radius: 30px;
+  border-radius: 50%;
   font-size: 16px; /* Adjust as needed */
   padding: 10px;
-  margin: 10px;
+  margin: 5px;
   cursor: pointer;
-}
-
-#pagination-controls button:hover {
-  background-color: #f0f0f0; /* Light grey background on hover */
+  width: 40px; /* Fixed width for all buttons */
+  height: 40px; /* Fixed height for all buttons */
+  display: inline-block;
+  text-align: center;
 }
 
 #pagination-controls .active-page {
   background-color: #000;
   color: #fff;
-  border-radius: 50%; /* Makes the button round */
-  width: 30px; /* Fixed width */
-  height: 30px; /* Fixed height */
-  line-height: 30px; /* Centers the text vertically */
-  display: inline-block;
-  text-align: center;
 }
 
 #pagination-controls .page-number {
   background-color: #fff;
   color: #000;
-  text-decoration: none; /* Removes underline from numbers if using <a> tags */
 }
 
-#pagination-controls .page-number:hover {
-  text-decoration: underline; /* Underline on hover */
+#pagination-controls button:hover {
+  background-color: #f0f0f0; /* Light grey background on hover */
+  color: #000;
 }
 

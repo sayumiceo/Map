@@ -46,26 +46,6 @@ function addJobToList(jobData, jobListing) {
     document.dispatchEvent(event);
 }
 
-// Function to fetch jobs from Firebase and update the UI
-// function fetchJobsAndUpdateList(jobListing) {
-//     const jobsRef = ref(db, 'jobs');
-//     onValue(jobsRef, (snapshot) => {
-//         // Clear the current list
-//         jobListing.innerHTML = '';
-
-//         // Get the data from Firebase
-//         const jobs = snapshot.val();
-
-//         // Loop through the jobs and add them to the list
-//         for (const jobId in jobs) {
-//             addJobToList(jobs[jobId], jobListing);
-//         }
-//     }, {
-//         onlyOnce: false 
-//         // This ensures the listener stays active
-//     });
-// }
-
 
 function fetchJobsAndUpdateList(jobListing) {
     const jobsRef = ref(db, 'jobs');
@@ -80,8 +60,8 @@ function fetchJobsAndUpdateList(jobListing) {
             totalJobs.push(jobs[jobId]);
         }
         
-        // Render the first page of jobs
-        renderPage(currentPage, jobListing);
+        renderPage(currentPage, jobListing); // Render the first page of jobs
+        updatePaginationControls(); // Update the pagination controls
     }, {
         onlyOnce: false // This ensures the listener stays active
     });
@@ -95,13 +75,20 @@ function renderPage(pageNumber, jobListing) {
     // Clear the current job listing
     jobListing.innerHTML = '';
     
-    // Slice the totalJobs array to get the jobs for the current page and render them
-    totalJobs.slice(startIndex, endIndex).forEach(jobData => {
-        addJobToList(jobData, jobListing);
-    });
+    const visibleJobs = totalJobs.slice(startIndex, endIndex);
+    visibleJobs.forEach(jobData => addJobToList(jobData, jobListing)); // Render the jobs for the current page
 
-    // Update pagination controls here if needed
-    updatePaginationControls();
+    updatePaginationControls(); // Call to update the pagination buttons
+
+    clearMapPins(); // Clear the map pins
+    visibleJobs.forEach(jobData => addPinToMap(jobData)); // Add new pins for the visible jobs
+
+    const contentContainer = document.getElementById('listing-container');
+
+    contentContainer.scrollTo(0, 0);
+    window.scrollTo(0, 0);
+
+
 }
 
 function updatePaginationControls() {
@@ -109,15 +96,14 @@ function updatePaginationControls() {
     paginationContainer.innerHTML = ''; // Clear existing controls
     
     const totalPages = Math.ceil(totalJobs.length / jobsPerPage);
-
     for (let i = 1; i <= totalPages; i++) {
         const pageButton = document.createElement('button');
         pageButton.textContent = i;
+        pageButton.className = currentPage === i ? 'active-page' : 'page-number'; // Highlight the current page
         pageButton.addEventListener('click', () => {
             currentPage = i;
             renderPage(i, document.getElementById('job-listing'));
         });
-        
         paginationContainer.appendChild(pageButton);
     }
 }   
@@ -166,10 +152,15 @@ document.addEventListener('DOMContentLoaded', function() {
             };
     
             // Send data to Firebase only, do not update the UI here
-            saveJobToFirebase(jobData);
+            if (jobTitle != "" && jobDescription != "" && jobLocation != "") {
+                saveJobToFirebase(jobData);
+                jobFormPopup.classList.remove('popup-active');
+            } else {
+              alert("入力漏れがあります。");
+            }
     
             // Hide the popup
-            jobFormPopup.classList.remove('popup-active');
+            
         });
     }
 
