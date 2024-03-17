@@ -80,8 +80,8 @@ function renderPage(pageNumber, jobListing) {
 
     updatePaginationControls(); // Call to update the pagination buttons
 
-    clearMapPins(); // Clear the map pins
-    visibleJobs.forEach(jobData => addPinToMap(jobData)); // Add new pins for the visible jobs
+    const event = new CustomEvent('ClearJobs', { });
+    document.dispatchEvent(event);
 
     const contentContainer = document.getElementById('listing-container');
 
@@ -158,8 +158,7 @@ document.addEventListener('DOMContentLoaded', function() {
             } else {
               alert("入力漏れがあります。");
             }
-    
-            // Hide the popup
+
             
         });
     }
@@ -174,9 +173,7 @@ function saveJobToFirebase(jobData) {
     set(newJobRef, jobData)
         .then(() => {
             console.log('Data saved successfully.');
-            // Call the function to pin the job location on the map
-            
-            //pinJobLocationOnMap(jobData.location, jobData.title, jobData.description);
+
         })
         .catch((error) => {
             console.error('Data could not be saved. ' + error);

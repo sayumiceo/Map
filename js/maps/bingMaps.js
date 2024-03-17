@@ -82,11 +82,10 @@ function updateMapForVisibleJobs(visibleJobs) {
       addPinToMap(jobData); // Then add a new pin for each job in the visibleJobs array
     });
     
-    // After adding pins, you could adjust the map view. This could be within addPinToMap or here
-    // For example, if you keep an array of the added locations, you can use that to set the bounds
   }
 
 
+var infoboxes = [];
 
 function createInfobox(location, title, description) {
     let descriptionWithPin = '<img src="/img/placeholder.png" align="left" style="margin-right:5px;"/>' + description;
@@ -98,21 +97,23 @@ function createInfobox(location, title, description) {
         htmlContent: infoboxTemplate.replace('{title}', title).replace('{description}', descriptionWithPin)
     });
     infobox.setMap(map); //Add infobox to Map
-
-    // const bounds = Microsoft.Maps.LocationRect.fromLocations(pinLocations);
-        
-    // // Set the map view to the bounding rectangle
-    // map.setView({ bounds: bounds });
+    infoboxes.push(infobox);
 }
 
 function clearMapPins() {
-    map.entities.clear(); // Clear all pins from the map
-  }
+    for (var i in infoboxes) {
+        infoboxes[i].setMap(null);
+    }
+    infoboxes = [];
+}
   
   function addPinToMap(jobData) {
     // Use the existing geocode logic to add a pin
     geocodeAddressManually(jobData);
   }
 
+  document.addEventListener('ClearJobs', function(e) {
+    clearMapPins();
+  });
 
 window.GetMap = GetMap;

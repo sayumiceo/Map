@@ -94,7 +94,7 @@
     width: 100%; /* Ensures the main content uses the full width */
   }
 
-  .listing-container {
+  #listing-container {
     margin-top: 10px; /* This should match the height of the header */
     width: 50%; /* Listing takes up half the width */
     height: calc(100vh - 94px); /* Full height minus the header */
@@ -179,7 +179,7 @@
     background-color: #8d6ee9;
   }
 
-  #job-form input[type="submit"] :hover {
+  #job-form input[type="submit"]:hover {
     background-color: #8161e3; /* ホバー時の背景色 */
   }
 
